@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    testImplementation 'org.testng:testng:7.5'
+    implementation group: 'com.codeborne', name: 'selenide', version: '6.9.0'
+
+}
+
+test {
+    useTestNG()
+
+}
+task localTests(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suites/local.xml'
+        useDefaultListeners = true
+        outputDirectory = file("$projectDir/build/reports/tests/localTests")
+    }
+    reports.html.setDestination(file("$projectDir/GradleReport"))
+}
